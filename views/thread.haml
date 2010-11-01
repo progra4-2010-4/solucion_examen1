@@ -1,0 +1,14 @@
+= haml :_item, :layout=>false, :locals => {:t => @thread}
+%p= display_formatted(@thread.content)
+-if logged_in?
+  %form{:action=>"/comments", :method=>"post"}
+    %textarea{:name=>"content", :rows=>6, :cols=>60}
+    %input{:type=>"hidden", :value=>@thread.id, :name=>"thread"}/
+    %input{:type=>"submit", :value=>"comentar"}/
+
+%ul#comments
+  -@thread.comments.all.each do |c|
+    %li.comment
+      %span.info= "por <a href='/users/#{c.user.username}'>#{c.user.username}</a> el #{c.created_at.strftime(" %d/%m/%Y  a las %I:%M%p")}"
+      %p= display_formatted(c.content)
+

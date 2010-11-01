@@ -1,0 +1,4 @@
+%ol
+  - @news.each do |item|
+    %li
+      = haml :_item, :layout=>false, :locals => {:t => item}
